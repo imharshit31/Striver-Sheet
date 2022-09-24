@@ -1,0 +1,32 @@
+string longestPalindrome(string s) {
+        
+    int n = s.length(),mx=1;
+    string ans=s.substr(0,1);
+    vector<vector<int>> dp(n,vector<int>(n,-1));
+
+    for(int j=0;j<n;j++){
+        int i=0,jj=j;
+        while(i<n and jj<n){
+            if(!j) dp[i++][jj++]=1;
+            else if(dp[i+1][jj-1]==-1){
+                if(s[i]==s[jj]) dp[i++][jj++]=j+1;
+                else dp[i++][jj++]=0;
+                if(dp[i-1][jj-1]>mx){
+                    mx=dp[i-1][jj-1];
+                    ans=s.substr(i-1,jj-i+1);
+                }
+            }
+            else{
+                if(dp[i+1][jj-1] and s[i]==s[jj]) dp[i++][jj++]=j+1;
+                else dp[i++][jj++]=0;
+                if(dp[i-1][jj-1]>mx){
+                    mx=dp[i-1][jj-1];
+                    ans=s.substr(i-1,jj-i+1);
+                }
+            }
+        }
+    }
+
+    return ans;
+
+}
