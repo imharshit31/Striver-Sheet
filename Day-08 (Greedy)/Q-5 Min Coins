@@ -1,0 +1,13 @@
+int findMinimumCoins(int amount){
+    vector<int> coins={1000,500,100,50,20,10,5,2,1};
+    
+    int count=0;
+    
+    for(int ind=0;ind<9 and amount;ind++){
+        int c1=amount/coins[ind];
+        amount-= c1*coins[ind];
+        count+=c1;
+    }
+    
+    return count;
+}
