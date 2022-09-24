@@ -1,0 +1,46 @@
+int myAtoi(string s) {
+        
+    long long sign =1,ans=0;
+    bool op=true,num=true;
+
+    for(auto a: s){
+        int ch = (int)a;
+        if(ch>= 48 and ch<=57){
+            ans*=10;
+            if(sign*ans>=INT_MAX){
+                ans=INT_MAX;
+                break;
+            }else if(sign*ans<=INT_MIN){
+                ans=INT_MIN;
+                sign=1;
+                break;
+            }
+            ans+=ch-48;
+            if(sign*ans>=INT_MAX){
+                ans=INT_MAX;
+                break;
+            }else if(sign*ans<=INT_MIN){
+                ans=INT_MIN;
+                sign=1;
+                break;
+            }
+            num=false;
+        }else if(a=='-' or a=='+'){
+            if(op and num){
+                if(a=='-') sign=-1;
+                op=false;
+            }
+            else break;
+        }
+        else if(a==' '){
+            if(!num or !op) break; 
+        }
+        else break;
+    }
+
+    long long a= (int)sign*ans;
+    if(a<=INT_MIN) return INT_MIN;
+    else if(a>INT_MAX) return INT_MAX;
+    return a;
+
+}
