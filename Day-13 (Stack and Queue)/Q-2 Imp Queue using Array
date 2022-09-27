@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct queuee{
+    
+    int arr[100];
+    int topp=-1,frontt=0;
+    
+    void push(int x){
+        topp++;
+        arr[topp]=x;
+    }
+    void pop(){
+        frontt++;
+    }
+    int front(){
+        return arr[frontt];
+    }
+    int size(){
+        return topp-frontt+1;
+    }
+    bool empty(){
+        return topp-frontt==-1;
+    }
+    
+};
+
+int main() {
+    
+    queuee q;
+    
+    q.push(10);
+    q.push(20);
+    cout<<q.front()<<endl;
+    q.pop();
+    cout<<q.front()<<" "<<q.size()<<" "<<q.empty()<<endl;
+    
+    
+    return 0;
+}
