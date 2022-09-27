@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct stackk{
+    
+    int arr[100];
+    int topp=-1;
+    
+    void push(int x){
+        topp++;
+        arr[topp]=x;
+    }
+    void pop(){
+        topp--;
+    }
+    int top(){
+        return arr[topp];
+    }
+    int size(){
+        return topp+1;
+    }
+    bool empty(){
+        return topp==-1;
+    }
+    
+};
+
+int main() {
+    
+    stackk stk;
+    
+    stk.push(10);
+    stk.push(20);
+    cout<<stk.top()<<endl;
+    stk.pop();
+    cout<<stk.top()<<" "<<stk.size()<<" "<<stk.empty()<<endl;
+    
+    
+    return 0;
+}
