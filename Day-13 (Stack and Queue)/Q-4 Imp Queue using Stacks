@@ -36,6 +36,8 @@ struct QueueUsingStacks{
 };
 
 struct QueueUsingStacksOpt{
+
+    //Push and Pop O(1) amortized 
     
     stack<int> ip,op;
     
