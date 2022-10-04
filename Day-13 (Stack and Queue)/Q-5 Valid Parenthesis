@@ -1,0 +1,20 @@
+bool isValid(string s) {
+        
+    stack<int> stk;
+    unordered_map<char,char> um={
+        {'(',')'},
+        {'{','}'},
+        {'[',']'}
+    };
+
+    for(auto a: s){
+        if(a=='(' or a=='{' or a=='[') stk.push(a);
+        else{
+            if(stk.empty() or um[stk.top()] != a) return false;
+            stk.pop();
+        }
+    }
+
+    return stk.empty();
+
+}
