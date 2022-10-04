@@ -1,0 +1,92 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct stackUsingTwoQueues{
+    
+    queue<int> q1,q2;
+    
+    void push(int x){
+        q2.push(x);
+        while(q1.size()){
+            q2.push(q1.front());
+            q1.pop();
+        }
+        while(q2.size()){
+            q1.push(q2.front());
+            q2.pop();
+        }
+    }
+    
+    void pop(){
+        q1.pop();
+    }
+    
+    int size(){
+        return q1.size();
+    }
+    
+    int top(){
+        return q1.front();
+    }
+    
+    bool empty(){
+        return q1.size() == 0;
+    }
+    
+};
+
+struct stackUsingSingleQueue{
+    
+    queue<int> q;
+    
+    void push(int x){
+        int size=q.size();
+        q.push(x);
+        while(size--){
+            int front = q.front();
+            q.pop();
+            q.push(front);
+        }
+    }
+    
+    void pop(){
+        q.pop();
+    }
+    
+    int size(){
+        return q.size();
+    }
+    
+    int top(){
+        return q.front();
+    }
+    
+    bool empty(){
+        return q.size() == 0;
+    }
+    
+};
+
+int main() {
+    
+    stackUsingTwoQueues stk;
+    //stackUsingSingleQueue stk;
+    
+    stk.push(1);
+    stk.push(2);
+    stk.push(3);
+    stk.push(4);
+    stk.push(5);
+    
+    cout<<stk.size()<<endl;
+    cout<<stk.empty()<<endl;
+    
+    while(stk.size()){
+        cout<<stk.top()<<endl;
+        stk.pop();
+    }
+    
+    
+    
+    return 0;
+}
