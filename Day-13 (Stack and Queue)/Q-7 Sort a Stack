@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void insert(stack<int> &stk, int val){
+    
+    if(stk.size()==0 or stk.top() <= val){
+        stk.push(val);
+        return;
+    }
+    
+    int last = stk.top();
+    stk.pop();
+    insert(stk,val);
+    stk.push(last);
+    
+}
+
+void sort(stack<int> &stk){
+    
+    if(stk.size()==1) return;
+    int val= stk.top();
+    stk.pop();
+    sort(stk);
+    insert(stk,val);
+    
+}
+
+int main() {
+    
+    stack<int> stk;
+    stk.push(9);
+    stk.push(7);
+    stk.push(8);
+    stk.push(3);
+    stk.push(4);
+    stk.push(2);
+    stk.push(5);
+    stk.push(1);
+    stk.push(6);
+    
+    
+    sort(stk);
+    
+    while(stk.size()){
+        cout<<stk.top()<<" ";
+        stk.pop();
+    }
+    
+    //It stores values in ascending order and prints them descendingly
+    
+}
