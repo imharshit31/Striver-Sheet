@@ -1,0 +1,112 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void gr(vector<int> &v, vector<int> &ans){
+    
+    int n=v.size();
+    
+    // for(int i=0;i<n;i++){
+    //     for(int j=i+1;j<n;j++){
+    //         if(v[j]>v[i]){
+    //             ans[i]=v[j];
+    //             break;
+    //         }
+    //     }
+    // }
+    
+    stack<int> stk;
+    
+    for(int i=n-1;i>=0;i--){
+        while(stk.size() and stk.top()<=v[i]) stk.pop();
+        if(stk.size()) ans[i]=stk.top();
+        stk.push(v[i]);
+    }
+    
+}
+
+void sr(vector<int> &v, vector<int> &ans){
+    
+    int n=v.size();
+    
+    // for(int i=0;i<n;i++){
+    //     for(int j=i+1;j<n;j++){
+    //         if(v[j]<v[i]){
+    //             ans[i]=v[j];
+    //             break;
+    //         }
+    //     }
+    // }
+    
+    stack<int> stk;
+    
+    for(int i=n-1;i>=0;i--){
+        while(stk.size() and stk.top()>=v[i]) stk.pop();
+        if(stk.size()) ans[i]=stk.top();
+        stk.push(v[i]);
+    }
+    
+}
+
+void gl(vector<int> &v, vector<int> &ans){
+    
+    int n=v.size();
+    
+    // for(int i=n-1;i>=0;i--){
+    //     for(int j=i-1;j>=0;j--){
+    //         if(v[j]>v[i]){
+    //             ans[i]=v[j];
+    //             break;
+    //         }
+    //     }
+    // }
+    
+    stack<int> stk;
+    
+    for(int i=0;i<n;i++){
+        while(stk.size() and stk.top()<=v[i]) stk.pop();
+        if(stk.size()) ans[i]=stk.top();
+        stk.push(v[i]);
+    }
+    
+}
+
+void sl(vector<int> &v, vector<int> &ans){
+    
+    int n=v.size();
+    
+    // for(int i=n-1;i>=0;i--){
+    //     for(int j=i-1;j>=0;j--){
+    //         if(v[j]<v[i]){
+    //             ans[i]=v[j];
+    //             break;
+    //         }
+    //     }
+    // }
+    
+    stack<int> stk;
+    
+    for(int i=0;i<n;i++){
+        while(stk.size() and stk.top()>=v[i]) stk.pop();
+        if(stk.size()) ans[i]=stk.top();
+        stk.push(v[i]);
+    }
+    
+}
+
+int main() {
+    
+    vector<int> v ={9,5,3,0,2,3,0,4,8,6};
+    vector<int> ans(v.size(),-1);
+    
+    gr(v,ans);
+    //sr(v,ans);
+    //gl(v,ans);
+    //sl(v,ans);
+    
+    cout<<ans.size()<<endl;
+    
+    for(auto a: ans) cout<<a<<" ";
+    
+    return 0;
+    
+}
