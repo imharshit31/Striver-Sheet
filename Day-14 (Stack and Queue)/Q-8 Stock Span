@@ -1,0 +1,17 @@
+stack<pair<int,int>> stk;
+int ind=0;
+StockSpanner() {
+
+}
+
+int next(int price) {
+
+    int val=-1;
+    while(stk.size() and stk.top().second<=price){
+        stk.pop();
+    }
+    if(stk.size()) val=stk.top().first;
+    stk.push({ind,price});
+    ind++;
+    return ind-val-1;
+}
