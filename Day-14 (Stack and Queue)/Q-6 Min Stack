@@ -1,0 +1,72 @@
+stack<int> stk1,stk2;
+int mn=INT_MAX;
+
+MinStack() {}
+
+void push(int val) {
+    stk1.push(val);
+    mn=min(mn,val);
+    stk2.push(mn);
+}
+
+void pop() {
+    stk1.pop();
+    stk2.pop();
+    if(stk1.empty()) mn=INT_MAX;
+    else mn=stk2.top();
+}
+
+int top() { return stk1.top();}
+
+int getMin() { return stk2.top();}
+
+// Without Space ->
+
+stack<int> stk;
+int mn=INT_MAX;
+
+MinStack() {
+}
+
+void push(int val) {
+
+    if(stk.empty()){
+        stk.push(val);
+        mn=val;
+    }
+    else{
+        if(val>=mn){
+            stk.push(val);
+        }else{
+            stk.push(2*val-mn);
+            mn=val;
+        }
+    }
+
+}
+
+void pop() {
+
+    if(stk.top()>=mn) stk.pop();
+    else{
+        mn=2*mn-stk.top();
+        stk.pop();
+    }
+}
+
+int top() {
+
+    if(stk.size()==0) return -1;
+    else{
+        if(stk.top()>=mn) return stk.top();
+        return mn;
+    }
+
+}
+
+int getMin() {
+
+    if(stk.size()==0) return -1;
+    return mn;
+
+}
