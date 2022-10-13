@@ -1,0 +1,23 @@
+int ans;
+    
+void inorder(TreeNode* root, int &k){
+
+    if(root){
+        inorder(root->right,k);
+        k--;
+        if(k==0){
+            ans=root->val;
+            k=-1;
+            return;
+        }
+        inorder(root->left,k);
+    }
+
+}
+
+int kthSmallest(TreeNode* root, int k) {
+
+    inorder(root,k);
+    return ans;
+
+}
