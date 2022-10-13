@@ -1,0 +1,13 @@
+int trap(vector<int>& height) {
+        
+    int i=0,j=height.size()-1,lm=height[i],rm=height[j],ans=0;   
+
+    while(i<=j){
+        lm=max(lm,height[i]);
+        rm=max(rm,height[j]);
+        if(height[i]<=height[j]) ans+=(max(0,min(lm,rm)-height[i++]));
+        else ans+=(max(0,min(lm,rm)-height[j--]));                               
+    }
+
+    return ans;
+}
