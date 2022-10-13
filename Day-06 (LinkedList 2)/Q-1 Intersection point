@@ -1,0 +1,50 @@
+ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        
+    int count1=0,count2=0;
+
+    ListNode* temp=headA;
+
+    while(temp){
+        count1++;
+        temp=temp->next;
+    }     
+
+    temp=headB;
+
+    while(temp){
+        count2++;
+        temp=temp->next;
+    }
+
+    ListNode* ha=headA, *hb=headB, *ans=NULL;
+
+    if(count1>count2){
+        while(count1>count2){
+            count1--;
+            ha=ha->next;
+        }
+        while(ha and hb){
+            if(ha==hb){
+                ans= ha;
+                break;
+            }
+            ha=ha->next;
+            hb=hb->next;
+        }
+    }else{
+        while(count2>count1){
+            count2--;
+            hb=hb->next;
+        }
+        while(ha and hb){
+            if(ha==hb){
+                ans= ha;
+                break;
+            }
+            ha=ha->next;
+            hb=hb->next;
+        }
+    }
+
+    return ans;
+}
