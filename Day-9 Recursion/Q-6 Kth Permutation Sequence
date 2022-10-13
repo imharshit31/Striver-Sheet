@@ -1,0 +1,28 @@
+vector<int> book;
+string str="";
+int fact=1;
+
+void hello(int n, int k){
+
+    if(!n)  return;
+
+    fact/=book.size();
+    str+=to_string(book[k/fact]);
+    book.erase(book.begin()+k/fact);
+    k%=fact;
+    hello(--n,k);
+
+}
+
+string getPermutation(int n, int k) {
+
+    for(int i=0;i<n;i++){
+        book.push_back(i+1);
+        fact*=(i+1);
+    }
+
+    hello(n,--k);
+
+    return str;
+
+}
