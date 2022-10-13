@@ -1,0 +1,26 @@
+map<int,pair<int,int>> mp;
+
+void inorder(Node *root, int x, int y){
+    if(!root) return;
+
+    inorder(root->left,x-1,y+1);
+
+    auto it = mp.find(x);
+    if(it != mp.end()){
+        if(mp[x].second>y) mp[x]={root->data,y};
+    }
+    else mp[x]={root->data,y};
+
+    inorder(root->right,x+1,y+1);
+}
+
+vector<int> topView(Node *root){
+
+    inorder(root,0,0);
+    vector<int> ans;
+
+    for(auto a: mp) ans.push_back(a.second.first);
+
+    return ans;
+
+}
