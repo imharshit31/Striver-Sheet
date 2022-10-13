@@ -1,0 +1,14 @@
+bool validate(TreeNode* root, long long low, long long high){
+        
+    if(!root) return true;
+
+    if(root->val>low and root->val<high and validate(root->left,low,root->val) and validate(root->right,root->val,high)) return true;
+    return false;
+
+}
+
+bool isValidBST(TreeNode* root) {
+
+    return validate(root,LLONG_MIN,LLONG_MAX);
+
+}
