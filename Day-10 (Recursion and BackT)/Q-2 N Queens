@@ -1,0 +1,53 @@
+bool safe(vector<string> &one, int row, int col, int n){
+        
+    for(int i=col;i>=0;i--)
+        if(one[row][i]=='Q') return false;
+
+    int tRow=row, tCol=col;
+
+    while(tRow>=0 && tCol>=0){
+        if(one[tRow][tCol]=='Q') return false;
+        tRow--;
+        tCol--;
+    }
+    tRow=row, tCol=col;
+
+    while(tCol>=0 && tRow<n){
+        if(one[tRow][tCol]=='Q') return false;
+        tCol--;
+        tRow++;
+    }
+
+    return true;
+}
+
+void hello(int col, vector<string> &one, vector<vector<string>> &ans, int n){
+
+    if(col==n){
+        ans.push_back(one);
+        return;
+    }
+
+    for(int row=0;row<n;row++){
+        if(safe(one,row,col,n)){
+            one[row][col]='Q';
+            hello(col+1,one,ans,n);
+            one[row][col]='.';
+        }
+    }
+}
+
+
+vector<vector<string>> solveNQueens(int n) {
+
+    vector<vector<string>> ans;
+    vector<string> one;
+
+    string s(n,'.');
+
+    for(int i=0;i<n;i++) one.push_back(s);
+
+    hello(0,one,ans,n);
+
+    return ans;
+}
