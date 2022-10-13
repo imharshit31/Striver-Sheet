@@ -1,0 +1,123 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct TreeNode{
+    
+    int val;
+    TreeNode *left, *right;
+    
+    TreeNode(int x){
+        val=x;
+        left=NULL;
+        right=NULL;
+    }
+    
+};
+
+void left(TreeNode *root, vector<int> &v){
+    while(root){
+        if(root->left or root->right) v.push_back(root->val);
+        if(root->left) root=root->left;
+        else if(root->right) root=root->right;
+        else break;
+    }
+}
+
+void leftRev(TreeNode *root, vector<int> &v){
+    stack<int> stk;
+    while(root){
+        if(root->left or root->right) stk.push(root->val);
+        if(root->left) root=root->left;
+        else if(root->right) root=root->right;
+        else break;
+    }
+    while(stk.size()){
+        v.push_back(stk.top());
+        stk.pop();
+    }
+}
+
+void right(TreeNode *root, vector<int> &v){
+    while(root){
+        if(root->left or root->right) v.push_back(root->val);
+        if(root->right) root=root->right;
+        else if(root->left) root=root->left;
+        else break;
+    }
+}
+
+void rightRev(TreeNode *root, vector<int> &v){
+    stack<int> stk;
+    while(root){
+        if(root->left or root->right) stk.push(root->val);
+        if(root->right) root=root->right;
+        else if(root->left) root=root->left;
+        else break;
+    }
+    while(stk.size()){
+        v.push_back(stk.top());
+        stk.pop();
+    }
+}
+
+void inorder(TreeNode *root, vector<int> &v){
+    
+    if(!root) return;
+    inorder(root->left,v);
+    if(!(root->left) and !(root->right)) v.push_back(root->val);
+    inorder(root->right,v);
+    
+}
+
+void inorderRev(TreeNode *root, stack<int> &stkk){
+    
+    if(!root) return;
+    inorderRev(root->left,stkk);
+    if(!(root->left) and !(root->right)){
+        stkk.push(root->val);
+    }
+    inorderRev(root->right,stkk);
+    
+}
+
+void boundaryACW(TreeNode *root, vector<int> &v){
+    v.push_back(root->val);
+    left(root->left,v);
+    inorder(root,v);
+    rightRev(root->right,v);
+}
+
+void boundaryCW(TreeNode *root, vector<int> &v){
+    v.push_back(root->val);
+    right(root->right,v);
+    stack<int> stkk;
+    inorderRev(root,stkk);
+    while(stkk.size()){
+        v.push_back(stkk.top());
+        stkk.pop();
+    }
+    leftRev(root->left,v);
+}
+
+int main() {
+    
+    TreeNode *root = new TreeNode(1);
+    root->left= new TreeNode(2);
+    root->right= new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
+    root->left->left->left = new TreeNode(8);
+    root->left->left->right = new TreeNode(9);
+    root->left->right->left = new TreeNode(10);
+    
+    vector<int> v;
+    
+    boundaryCW(root,v);
+    
+    for(auto a: v) cout<<a<<" ";
+    cout<<endl;
+    
+    return 0;
+}
