@@ -1,0 +1,33 @@
+string countAndSay(int n) {
+        
+    string s = "1";
+
+    while(--n){
+
+        string neww="";
+        char last='$';
+        int cc=0;
+        for(auto a: s){
+            if(a==last or last=='$'){
+                last=a;
+                cc++;
+            }else{
+                string ss = to_string(cc);
+                for(auto a: ss) neww.push_back(a);
+                neww.push_back(last);
+                last=a;
+                cc=1;
+            }
+        }
+        if(cc){
+            string ss = to_string(cc);
+            for(auto a: ss) neww.push_back(a);
+            neww.push_back(last);
+        }
+
+        s=neww;
+
+    }
+
+    return s;
+}
