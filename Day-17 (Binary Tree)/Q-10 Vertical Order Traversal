@@ -1,0 +1,33 @@
+static bool compu(pair<int,int> &a, pair<int,int> &b){
+    if(a.second==b.second) return a.first<b.first;
+    return a.second<b.second;
+}
+
+map<int,vector<pair<int,int>>> mp;
+
+void inorder(TreeNode* root, int x, int y){
+
+    if(!root) return;
+
+    inorder(root->left,x-1,y+1);
+    mp[x].push_back({root->val,y});
+    inorder(root->right,x+1,y+1);
+}
+
+vector<vector<int>> verticalTraversal(TreeNode* root) {
+
+    vector<vector<int>> ans;
+
+    inorder(root,0,0);
+
+    for(auto a: mp){
+        vector<pair<int,int>> vp=a.second;
+        sort(vp.begin(),vp.end(),compu);
+        vector<int> temp;
+        for(auto aa: vp) temp.push_back(aa.first);
+        ans.push_back(temp);
+    }
+
+    return ans;
+
+}
