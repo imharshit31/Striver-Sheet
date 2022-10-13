@@ -1,0 +1,21 @@
+vector<int> topKFrequent(vector<int>& nums, int k) {
+        
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> minh;
+    unordered_map<int,int> m;
+
+    for(auto a: nums) m[a]++;
+
+    for(auto a: m){
+        minh.push({a.second,a.first});
+        if(minh.size()>k) minh.pop();
+    }
+
+    vector<int> ans;
+
+    while(minh.size()){
+        ans.push_back(minh.top().second);
+        minh.pop();
+    }
+
+    return ans;
+}
