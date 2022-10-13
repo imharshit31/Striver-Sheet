@@ -1,0 +1,71 @@
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        
+    int count1=0,count2=0;
+    ListNode* temp=l1;
+
+    while(temp){
+        count1++;
+        temp=temp->next;
+    }
+    temp=l2;
+
+    while(temp){
+        count2++;
+        temp=temp->next;
+    }
+
+
+    ListNode* ll1=l1, *ll2=l2, *ans = NULL;
+    int carry=0;
+
+    if(count1>count2){
+
+        int v =(ll1->val+ll2->val);
+        carry=(ll1->val+ll2->val-v%10)/10;
+        ll1->val=v%10;
+
+        while(ll1 and ll2 and ll1->next and ll2->next){
+            ll1=ll1->next;
+            ll2=ll2->next;
+            int v=ll1->val+ll2->val+carry;
+            ll1->val=v%10;
+            carry=(v-(v%10))/10;
+        }
+        while(ll1->next){
+            ll1=ll1->next;
+            int v=ll1->val+carry;
+            ll1->val=v%10;
+            carry=(v-(v%10))/10;
+        }
+        if(carry) ll1->next=new ListNode(carry);
+
+        ans=l1;
+
+    }else{
+
+        int v =(ll1->val+ll2->val);
+        carry=(ll1->val+ll2->val-v%10)/10;
+        ll2->val=v%10;
+
+        while(ll1 and ll2 and ll1->next and ll2->next){
+            ll1=ll1->next;
+            ll2=ll2->next;
+            int v=ll1->val+ll2->val+carry;
+            ll2->val=v%10;
+            carry=(v-(v%10))/10;
+        }
+        while(ll2->next){
+            ll2=ll2->next;
+            int v=ll2->val+carry;
+            ll2->val=v%10;
+            carry=(v-(v%10))/10;
+        }
+        if(carry) ll2->next=new ListNode(carry);
+
+        ans=l2;
+
+    }
+
+    return ans;
+
+}
