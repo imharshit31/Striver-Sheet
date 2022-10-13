@@ -1,0 +1,45 @@
+bool isValid(int i, int j, int row, int col){
+    if(i>=0 and i<row and j>=0 and j<col) return true;
+    return false;
+}
+
+int orangesRotting(vector<vector<int>>& grid) {
+
+    int row =grid.size(), col = grid[0].size(), orange=0, days=0,
+    xDir[] = {1,-1,0,0}, yDir[] = {0,0,1,-1};
+    queue<vector<int>> q;
+
+    for(int i=0;i<row;i++)
+        for(int j=0;j<col;j++)
+            if(grid[i][j]==1) orange++;
+            else if(grid[i][j]==2) q.push({i,j});
+
+    if(!orange) return 0;
+
+    while(!q.empty()){
+
+        if(!orange) break;
+        int size = q.size();
+
+        for(int i=0;i<size;i++){
+
+            auto cur = q.front();
+            q.pop();
+
+            for(int j=0;j<4;j++){
+                int nx = cur[0]+xDir[j];
+                int ny = cur[1]+yDir[j];
+
+                if(isValid(nx,ny,row,col) && grid[nx][ny]==1){
+                    grid[nx][ny]=2;
+                    orange--;
+                    q.push({nx,ny});
+                }
+            }
+        }
+        days++;
+    }
+
+    if(!days or orange>0) return -1;
+    return days;
+}
