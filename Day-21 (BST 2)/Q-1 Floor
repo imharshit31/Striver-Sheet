@@ -1,0 +1,20 @@
+int findFloor(Node* root, int input) {
+    if (!root) return -1;
+    
+    int ans=-1;
+
+    while(root->data != input){
+        if(root->data<input){
+            if(ans!=-1) ans=max(ans,root->data);
+            else ans=root->data;
+            if(root->right) root=root->right;
+            else return ans;
+        }
+        else
+            if(root->left) root=root->left;
+            else return ans;
+    }
+    
+    return root->data;
+    
+}
