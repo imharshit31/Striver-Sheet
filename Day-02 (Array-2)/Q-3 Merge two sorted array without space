@@ -1,0 +1,15 @@
+void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        
+    int ii=m-1,jj=n-1,size=nums1.size()-1;
+
+    while(ii>=0 && jj>=0){
+        if(nums1[ii]>nums2[jj])
+            nums1[size--]=nums1[ii--];
+        else
+            nums1[size--]=nums2[jj--];
+    }
+
+    while(jj>=0)
+        nums1[size--]=nums2[jj--];
+
+}
