@@ -1,0 +1,10 @@
+int balancedBTOpt (TreeNode *root) {
+    if (!root) return 0;
+    int lh = balancedBTOpt (root -> left);
+    int rh = balancedBTOpt (root -> right);
+    if (lh ==-1 or rh==-1 or abs(lh - rh) > 1)  return -1;
+    return 1+max (lh, rh);
+}
+bool isBalanced(TreeNode *root) {
+    return balancedBTOpt (root) != -1;
+}
