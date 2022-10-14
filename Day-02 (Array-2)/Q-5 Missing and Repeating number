@@ -1,0 +1,22 @@
+vector<int> Solution::repeatedNumber(const vector<int> &A) {
+    
+    long long n=A.size(),sum=((n)*(n+1))/2,sqSum=(n*(n+1)*(2*n+1))/6;
+    
+    for(auto a: A){
+        sum -= a;
+        sqSum -= (long long) pow(a,2);
+    }
+    
+    //sum = Miss-Rep
+    //sqSum = Miss^2 - Rep^2
+    
+    sqSum/=sum;
+    
+    //sqSum=Miss+Rep
+    
+    int miss=(sqSum+sum)/2, rep =(sqSum-sum)/2;
+    
+    return {rep,miss};
+    
+    
+}
