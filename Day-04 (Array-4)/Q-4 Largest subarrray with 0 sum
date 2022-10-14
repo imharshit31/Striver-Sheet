@@ -1,0 +1,14 @@
+int maxLen(vector<int>&A, int n){  
+        
+    int ans=0,sum=0;
+    unordered_map<int,int> um;
+
+    for(int i=0;i<n;i++){
+        sum+=A[i];
+        if(!sum) ans=max(ans,i+1);
+        if(um.find(sum)==um.end()) um[sum]=i;
+        else ans=max(ans,i-um[sum]);
+    }
+
+    return ans;
+}
