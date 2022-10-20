@@ -1,0 +1,48 @@
+struct Node {
+    Node *links[26];
+    bool flag = false;
+};
+
+class Trie {
+public:
+    Node* root;
+    
+    Trie() {
+        root=new Node();
+    }
+    
+    void insert(string word) {
+        Node *curr = root;
+		for (auto a: word) {
+			if (!(curr->links[a-'a'])) curr->links[a - 'a'] = new Node();
+			curr = curr->links[a - 'a'];
+		}
+		curr->flag = true;
+    }
+    
+    bool search(string word) {
+        Node *curr = root;
+		for (auto a: word) {
+			if (!(curr->links[a-'a'])) return false;
+			curr = curr->links[a - 'a'];
+		}
+		return curr->flag;
+    }
+    
+    bool startsWith(string prefix) {
+        Node* curr = root;
+		for (auto a: prefix) {
+			if (!(curr->links[a-'a'])) return false;
+			curr = curr->links[a - 'a'];
+		}
+		return true;
+    }
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
