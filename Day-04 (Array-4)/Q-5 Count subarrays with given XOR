@@ -1,0 +1,14 @@
+int Solution::solve(vector<int> &A, int B) {
+    
+    unordered_map<int,int> um;
+    int cnt=0,xr=0;
+    
+    for(auto a: A){
+        xr^=a;
+        if(xr==B) cnt++;
+        cnt += um[xr^B];
+        um[xr]++;
+    }
+    
+    return cnt;
+}
