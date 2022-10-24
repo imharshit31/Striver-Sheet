@@ -1,0 +1,29 @@
+Node* merge(Node* l1, Node* l2){
+    
+    Node *ans= new Node(69),*curr= ans;
+    
+    while(l1 and l2){
+        if(l1->data <= l2->data){
+            curr->bottom=l1;
+            l1=l1->bottom;
+        }else{
+            curr->bottom=l2;
+            l2=l2->bottom;
+        }
+        curr=curr->bottom;
+    }
+    
+    if(l1) curr->bottom=l1;
+    else curr->bottom=l2;
+    
+    return ans->bottom;
+}   
+
+Node *flatten(Node *root){
+    
+    if(root->next==NULL) return root;
+    
+    Node* ans = merge(root,flatten(root->next));
+    
+    return ans;
+}
