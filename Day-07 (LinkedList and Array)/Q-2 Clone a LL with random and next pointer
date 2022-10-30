@@ -1,0 +1,34 @@
+Node* copyRandomList(Node* head) {
+        
+    if(!head) return head;
+
+    Node *curr=head;
+
+    while(curr){
+        Node* n = curr->next;
+        curr->next = new Node(curr->val);
+        curr->next->next=n;
+        curr=n;
+    }
+
+    curr=head;
+
+    while(curr){
+        if(curr->random) curr->next->random = curr->random->next;
+        else curr->next->random = NULL;
+        curr=curr->next->next;
+    }
+
+    Node *a=head, *b=head->next, *ans=b;
+
+    while(a){
+        a->next = b->next;
+        a = b->next;
+        if(a) b->next = a->next;
+        else b->next = NULL;
+        if(!a) break;
+        b = a->next;
+    }
+
+    return ans;
+}
