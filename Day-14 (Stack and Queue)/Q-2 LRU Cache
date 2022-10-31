@@ -1,0 +1,67 @@
+struct node{
+    int key;
+    int val;
+    node *next;
+    node *prev;
+    node(int k, int v) {
+        key = k;
+        val = v;
+    }
+};
+
+int cap;
+unordered_map <int,node*> um;
+node *head, *tail;
+
+LRUCache(int capacity) {
+    cap = capacity;
+    head = new node(-1,-1);
+    tail = new node(-1,-1);
+    head -> next = tail;
+    tail -> prev = head;
+}
+
+void add(node *thiss) {
+    node *n = head->next;
+    thiss->next = n;
+    thiss -> prev = head;
+    head -> next = thiss;
+    n -> prev = thiss;
+}
+
+void del(node *thiss) {
+    node *p = thiss -> prev;
+    node *n = thiss -> next;
+    p -> next = n;
+    n -> prev = p;
+  }
+
+int get(int key) {
+
+    if (um.find(key) != um.end()) {
+      node *loc = um[key];
+      int val = loc -> val;
+      um.erase(key);
+      del(loc);
+      add(loc);
+      um[key] = head -> next;
+      return val;
+    }
+    return -1;
+}
+
+void put(int key, int value) {
+
+    if (um.find(key) != um.end()) {
+        node *ex = um[key];
+        um.erase(key);
+        del(ex);
+    }
+    if (um.size() == cap) {
+        um.erase(tail -> prev -> key);
+        del(tail -> prev);
+    }
+
+    add(new node(key, value));
+    um[key] = head -> next;
+}
