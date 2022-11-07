@@ -1,0 +1,27 @@
+int findCelebrity(int n) {
+ 	
+    stack<int> stk;
+   
+    for(int i=0;i<n;i++) stk.push(i);
+    
+    while(stk.size()>1){
+        
+        int a=stk.top();
+        stk.pop();
+        int b = stk.top();
+        stk.pop();
+        
+        if(!knows(a,b) or !knows(b,a))
+            if(knows(a,b)) stk.push(b);
+            else stk.push(a);
+    }
+    
+    if(!stk.size()) return -1;
+    
+    int ans=stk.top();
+    
+    for(int i=0;i<n;i++)
+        if(i != ans and !knows(i,ans)) return -1;
+    
+    return ans;
+}
