@@ -1,0 +1,46 @@
+#include <bits/stdc++.h> 
+
+void sl(vector<int> &v, vector<int> &ans){
+    
+    int n=v.size();
+    stack<int> stk;
+    
+    for(int i=0;i<n;i++){
+        while(stk.size() and v[stk.top()] >= v[i]) stk.pop();
+        if(stk.size()) ans[i]+=i-stk.top()-1;
+        else ans[i]+=i;
+        stk.push(i);
+    }
+}
+
+void sr(vector<int> &v, vector<int> &ans){
+    
+    int n=v.size();
+    stack<int> stk;
+    
+    for(int i=n-1;i>=0;i--){
+        while(stk.size() and v[stk.top()] >= v[i]) stk.pop();
+        if(stk.size()) ans[i]+=stk.top()-i-1;
+        else ans[i]+=n-i-1;
+        stk.push(i);
+    }
+}
+
+vector<int> maxMinWindow(vector<int> a, int n) {
+    
+    int mx=INT_MIN;
+    vector<int> vec(n,1),ans(n,INT_MIN);
+    
+    sl(a,vec);
+    sr(a,vec);
+    
+    for(int i=0;i<n;i++)
+        ans[vec[i]-1] = max(ans[vec[i]-1],a[i]);
+    
+    for(int i=n-1;i>=0;i--){
+        mx=max(mx,ans[i]);
+        ans[i]=mx;
+    }
+    
+    return ans;
+}
