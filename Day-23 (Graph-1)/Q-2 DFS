@@ -1,0 +1,24 @@
+vector<int> ans;
+queue<int> q;
+
+void dfs(int si, int V, vector<int> adj[], vector<int> &vis){
+
+    for(int i=0;i<adj[si].size();i++){
+        if(!vis[adj[si][i]]){
+            vis[adj[si][i]]=1;
+            ans.push_back(adj[si][i]);
+            dfs(adj[si][i],V,adj,vis);
+        }
+    }
+
+}
+
+vector<int> dfsOfGraph(int V, vector<int> adj[]) {
+
+    vector<int> vis(V,0);
+    vis[0]=1;
+    ans.push_back(0);
+    dfs(0, V, adj,vis);
+
+    return ans;
+}
