@@ -1,0 +1,29 @@
+unordered_map<Node* , Node*> um; 
+    
+Node* cloneGraph(Node* node) {
+
+    if(!node) return node;
+
+    Node* first = new Node(node -> val);
+    um[node] = first;
+
+    queue<Node*> q;
+    q.push(node);
+
+    while(q.size()){
+
+        Node *curr = q.front();
+        q.pop();
+
+        for(auto a: curr -> neighbors){
+
+            if(um.find(a) == um.end()){
+                um[a] = new Node(a-> val);
+                q.push(a);
+            }
+            um[curr] -> neighbors.push_back(um[a]);
+        }
+    }
+
+    return um[node];
+}
