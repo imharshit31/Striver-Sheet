@@ -1,0 +1,29 @@
+bool isCycle(int V, vector<int> adj[]) {
+        
+    queue<pair<int,int>> q;
+    vector<bool> vis(V,false);
+
+    for(int i=0;i<V;i++){
+
+        if(!vis[i]){
+            q.push({i,-1});
+            vis[i]=true;
+        }
+
+        while(q.size()){
+            pair<int,int> fr = q.front();
+            q.pop();
+            for(auto a: adj[fr.first]){
+                if(a != fr.second){
+                    if(vis[a]) return true;
+                    else{
+                        vis[a]=true;
+                        q.push({a,fr.first});
+                    }
+                }
+            }
+        }
+    }
+
+    return false;
+}
