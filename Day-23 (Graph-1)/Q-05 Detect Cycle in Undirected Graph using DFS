@@ -1,0 +1,19 @@
+bool DFS(int node, int parent, vector<int> adj[], vector<int> &vis){
+        
+    vis[node]=true;
+
+    for(auto a: adj[node])
+        if(a != parent and (vis[a] or DFS(a,node,adj,vis)) ) return true;
+
+    return false;
+}
+
+bool isCycle(int V, vector<int> adj[]) {
+
+    vector<int> vis(V,false);
+
+    for(int i=0;i<V;i++)
+        if(!vis[i] and DFS(i,-1,adj,vis) ) return true;
+
+    return false;
+}
