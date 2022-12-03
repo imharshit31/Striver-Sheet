@@ -1,0 +1,30 @@
+bool DFS(int i, vector<vector<int>> &graph, vector<bool> &vis, vector<int> &col, int n, int cc){
+        
+    col[i]=-1*cc;
+    vis[i]=true;
+    for(auto a: graph[i]){
+        if(!vis[a]){
+            if(DFS(a,graph,vis,col,n,col[i])) return true;
+        }
+        else{
+            if(col[a]==col[i]) return true;
+        }
+    }
+
+    return false;
+}
+
+bool isBipartite(vector<vector<int>>& graph) {
+
+    int n=graph.size();
+    vector<bool> vis(n,false);
+    vector<int> col(n,0);
+
+    for(int i=0;i<n;i++){
+        if(!vis[i]){
+           if(DFS(i,graph,vis,col,n,-1)) return false;
+        }
+    } 
+
+    return true;       
+}
