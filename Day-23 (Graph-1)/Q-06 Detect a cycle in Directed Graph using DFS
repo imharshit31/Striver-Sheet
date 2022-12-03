@@ -1,0 +1,30 @@
+bool DFS(int node, vector<int> adj[], bool vis[], bool cVis[]){
+        
+    vis[node]=true;
+    cVis[node]=true;
+
+    for(auto a: adj[node]){
+        if(!vis[a]){
+            if(DFS(a,adj,vis,cVis)) return true;
+        }else if(cVis[a]) return true;
+    }
+
+    cVis[node]=false;
+    return false;
+}
+
+bool isCyclic(int V, vector<int> adj[]) {
+
+    bool vis[V],cVis[V];
+
+    for(int i=0;i<V;i++){
+        vis[i]=false;
+        cVis[i]=false;
+    }
+
+    for(int i=0;i<V;i++)
+        if(!vis[i])
+            if(DFS(i,adj,vis,cVis) ) return true;
+
+    return false;
+}
