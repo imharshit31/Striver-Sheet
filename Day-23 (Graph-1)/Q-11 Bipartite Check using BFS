@@ -1,0 +1,30 @@
+bool isBipartite(vector<vector<int>>& graph) {
+
+    queue<int> q;
+    int n=graph.size();
+    vector<bool> vis(n,false);
+    vector<int> col(n,0);
+
+    for(int i=0;i<n;i++){
+        if(!vis[i]){
+            q.push(i);
+            col[i]=1;
+            vis[i]=true;
+            while(q.size()){
+                int fr = q.front();
+                q.pop();
+                for(auto a: graph[fr]){
+                    if(!vis[a]){
+                        q.push(a);
+                        col[a]=-1*col[fr];
+                        vis[a]=true;
+                    }else{
+                        if(col[a]==col[fr]) return false;
+                    }
+                }
+            }
+        }
+    } 
+
+    return true;       
+}
