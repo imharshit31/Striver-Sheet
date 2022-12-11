@@ -1,0 +1,25 @@
+stack<int> stk;
+	
+void DFS(vector<int> adj[], int i, vector<bool> &vis){
+
+    if(!vis[i]){
+        vis[i]=true;
+        for(auto a: adj[i]) DFS(adj,a,vis);
+        stk.push(i);
+    }
+}
+
+vector<int> topoSort(int V, vector<int> adj[]){
+
+    vector<bool> vis(V,false);
+    vector<int> ans;
+
+    for(int i=0;i<V;i++) if(!vis[i]) DFS(adj,i,vis);
+
+    while(stk.size()){
+        ans.push_back(stk.top());
+        stk.pop();
+    }
+
+    return ans;
+}
