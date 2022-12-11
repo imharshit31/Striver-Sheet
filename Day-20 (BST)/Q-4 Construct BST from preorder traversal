@@ -1,0 +1,36 @@
+TreeNode* construct(vector<int> &preorder, vector<int> &inorder){
+        
+    if(!preorder.size()) return NULL;
+
+    TreeNode *root = new TreeNode(preorder[0]);
+
+    int i;
+    vector<int> leftin,rightin,leftpre,rightpre;
+
+    for(i=0;i<inorder.size();i++){
+        if(inorder[i]==preorder[0]) break;
+        leftin.push_back(inorder[i]);
+    }
+
+    for(int ii=i+1;ii<inorder.size();ii++) rightin.push_back(inorder[ii]);
+
+    int ii;
+    for(ii=1;ii<preorder.size();ii++)
+        if(ii<=leftin.size()) leftpre.push_back(preorder[ii]);
+        else rightpre.push_back(preorder[ii]);
+
+    root->left = construct(leftpre,leftin);
+    root->right = construct(rightpre,rightin);
+
+    return root;
+
+}
+
+
+TreeNode* bstFromPreorder(vector<int>& preorder) {
+
+    vector<int> inorder = preorder;
+    sort(inorder.begin(),inorder.end());
+
+    return construct(preorder,inorder);
+}
