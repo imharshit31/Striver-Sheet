@@ -1,0 +1,32 @@
+int topoSort(int V, vector<vector<int>> adj, vector<int> inDeg){
+        
+    vector<int> ans;
+    queue<int> q;
+
+    for(int i=0;i<V;i++) if(!inDeg[i]) q.push(i);
+
+    while(q.size()){
+        int fr = q.front();
+        q.pop();
+        ans.push_back(fr);
+        for(auto a: adj[fr]){
+            inDeg[a]--;
+            if(!inDeg[a]) q.push(a);
+        }
+    }
+
+    return ans.size();
+}
+
+bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+
+    vector<vector<int>> adj(numCourses);
+    vector<int> inDeg(numCourses,0);
+
+    for(auto a: prerequisites){
+        adj[a[1]].push_back(a[0]);
+        inDeg[a[0]]++;
+    }
+
+    return topoSort(numCourses,adj,inDeg) == numCourses;
+}
