@@ -1,0 +1,29 @@
+void DFS(vector<vector<int>> &m, int n, vector<string> &ans, string curr, int i, int j, vector<vector<int>> &vis){
+
+    if(min(i,j) < 0 or max(i,j) >= n or !m[i][j] or vis[i][j]) return;
+
+    if(i == n-1 and j == n-1){
+        ans.push_back(curr);
+        return;
+    }
+
+    vis[i][j]=1;
+
+    DFS(m,n,ans,curr+'D',i+1,j,vis);
+    DFS(m,n,ans,curr+'U',i-1,j,vis);
+    DFS(m,n,ans,curr+'R',i,j+1,vis);
+    DFS(m,n,ans,curr+'L',i,j-1,vis);
+
+    vis[i][j]=0;
+
+}
+
+vector<string> findPath(vector<vector<int>> &m, int n) {
+
+    vector<string> ans;
+    vector<vector<int>> vis(n,vector<int>(n,0));
+
+    DFS(m,n,ans,"",0,0,vis);
+
+    return ans;
+}
