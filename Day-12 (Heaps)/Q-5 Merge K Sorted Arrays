@@ -1,0 +1,24 @@
+vector<int> mergeKSortedArrays(vector<vector<int>>&kArrays, int k){
+    
+  vector<int> ans;
+  priority_queue<pair<int,int>> maxh;
+
+  for(int i=0;i<k;i++)
+      if(kArrays[i].size()){
+          maxh.push({kArrays[i].back(),i});
+          kArrays[i].pop_back();
+      }
+
+  while(maxh.size()){
+      auto top = maxh.top();
+      maxh.pop();
+      ans.push_back(top.first);
+      if(kArrays[top.second].size()){
+          maxh.push({kArrays[top.second].back(),top.second});
+          kArrays[top.second].pop_back();
+      } 
+  }
+  reverse(ans.begin(),ans.end());
+
+  return ans;
+}
