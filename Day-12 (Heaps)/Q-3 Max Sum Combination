@@ -1,0 +1,28 @@
+vector<int> Solution::solve(vector<int> &A, vector<int> &B, int C) {
+    
+    sort(A.begin(),A.end());
+    sort(B.begin(),B.end());
+    priority_queue<pair<int,pair<int,int>>> maxh;
+    set<pair<int,int>> st;
+    int n = A.size();
+    maxh.push({A[n-1]+B[n-1],{n-1,n-1}});
+    st.insert({n-1,n-1});
+    vector<int> ans;
+    
+    while(C--){
+        auto top = maxh.top();
+        maxh.pop();
+        ans.push_back(top.first);
+        int L = top.second.first, R = top.second.second;
+        
+        if(L and R and st.find({L-1,R}) == st.end()){
+            maxh.push({A[L-1]+B[R],{L-1,R}});
+            st.insert({L-1,R});
+        }
+        if(L and R and st.find({L,R-1}) == st.end()){
+            maxh.push({A[L]+B[R-1],{L,R-1}});
+            st.insert({L,R-1});
+        }
+    }
+    return ans;
+}
