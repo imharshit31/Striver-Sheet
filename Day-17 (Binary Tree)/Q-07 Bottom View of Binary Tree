@@ -1,0 +1,29 @@
+vector <int> bottomView(Node *root) {
+        
+    unordered_map<int,int> um;
+    queue<pair<Node*,int>> q;
+
+    q.push({root,0});
+
+    while(q.size()){
+
+        auto fr = q.front();
+        q.pop();
+        um[fr.second]=fr.first->data;
+        if(fr.first->left) q.push({fr.first->left,fr.second-1});
+        if(fr.first->right) q.push({fr.first->right,fr.second+1});
+    }
+
+    int mn=INT_MAX,cnt=0;
+
+    for(auto a: um){
+        mn=min(mn,a.first);
+        cnt++;
+    }
+
+    vector<int> ans(cnt);
+
+    for(auto a: um) ans[a.first-mn]=a.second;
+
+    return ans;
+}
