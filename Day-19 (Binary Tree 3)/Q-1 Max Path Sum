@@ -1,0 +1,14 @@
+int ans=INT_MIN;
+
+int predim(TreeNode* root){
+    if(!root) return 0;
+    int l = predim(root->left), r = predim(root->right);
+    ans = max(ans,root->val + max(0,l) + max(0,r));
+    return root->val + max({l,r,0});
+}
+
+int maxPathSum(TreeNode* root) {
+
+    predim(root);
+    return ans;
+}
