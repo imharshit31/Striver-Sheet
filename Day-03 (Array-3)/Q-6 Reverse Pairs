@@ -1,0 +1,43 @@
+int ans=0;
+
+void conquer(vector<int> &nums, int s, int m, int e){
+
+    vector<int> merged;
+    int i1=s, i2=m+1, j=m+1;
+
+    for(int i=s;i<=m;i++){
+        while(j<=e and nums[i] > (long long)2*nums[j]) j++;
+        ans += j-m-1;
+    }
+
+    while(i1 <= m and i2<=e)
+        if(nums[i1] <= nums[i2]) merged.push_back(nums[i1++]);
+        else merged.push_back(nums[i2++]);
+
+    while(i1<=m) merged.push_back(nums[i1++]);
+    while(i2<=e) merged.push_back(nums[i2++]);
+
+    int s2=s;
+
+    for(auto a: merged) nums[s2++]=a;
+}
+
+void divide(vector<int> &nums, int s, int e){
+
+    if(s>=e) return;
+
+    int m= s+(e-s)/2;
+    divide(nums,s,m);
+    divide(nums,m+1,e);
+
+    conquer(nums,s,m,e);
+}
+
+int reversePairs(vector<int>& nums) {
+
+    int n=nums.size();
+
+    divide(nums,0,n-1);
+
+    return ans;
+}
