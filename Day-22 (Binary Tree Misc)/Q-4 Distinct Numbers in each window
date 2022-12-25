@@ -1,0 +1,21 @@
+vector<int> Solution::dNums(vector<int> &A, int B) {
+    
+    unordered_map<int,int> um;
+    vector<int> ans;
+    int n=A.size(),num=0;
+    for(int i=0;i<B;i++){
+        um[A[i]]++;
+        if(um[A[i]]==1) num++;
+    }
+    ans.push_back(num);
+    
+    for(int i=B;i<n;i++){
+        um[A[i]]++;
+        if(um[A[i]]==1) num++;
+        um[A[i-B]]--;
+        if(um[A[i-B]]==0) num--;
+        ans.push_back(num);
+    }
+    
+    return ans;
+}
