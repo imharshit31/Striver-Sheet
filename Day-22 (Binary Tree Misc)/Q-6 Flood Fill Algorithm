@@ -1,0 +1,19 @@
+vector<vector<int>> dir={{1,0},{-1,0},{0,1},{0,-1}};
+
+void dfs(vector<vector<int>> &image,int iColor,int color,int sr,int sc,int m,int n){
+
+    if(sr<0 or sr>=m or sc<0 or sc>=n or image[sr][sc] != iColor or image[sr][sc] == color) return;
+
+    image[sr][sc]=color;
+
+    for(auto a: dir) dfs(image,iColor,color,sr+a[0],sc+a[1],m,n);
+}
+
+vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+
+    int m=image.size(),n=image[0].size(),iColor=image[sr][sc];
+
+    dfs(image,iColor,color,sr,sc,m,n);
+
+    return image;
+}
