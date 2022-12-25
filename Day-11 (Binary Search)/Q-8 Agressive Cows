@@ -1,0 +1,31 @@
+bool possible(vector<int> &price, int m, int k){
+        
+    int n=price.size(), st=price[0];
+    k--;
+    for(int i=1;i<n;i++){
+        if(price[i]-st >= m){
+            k--;
+            st=price[i];
+        }
+        if(!k) return true;                
+    }
+
+    return false;
+}
+
+int maximumTastiness(vector<int>& price, int k) {
+
+    sort(price.begin(),price.end());
+    int n=price.size(), l=0, r=1e9, m, ans;
+
+    while(l<=r){
+        m=(l+r)/2;
+        if(possible(price,m,k)){
+            ans=m;
+            l=m+1;
+        }
+        else r=m-1;
+    }
+
+    return ans; 
+}
