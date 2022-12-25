@@ -1,0 +1,31 @@
+priority_queue<int> maxh;
+priority_queue<int,vector<int>,greater<int>> minh;
+
+MedianFinder() {
+
+}
+
+void addNum(int num) {
+
+    if(maxh.empty() and minh.empty()) maxh.push(num);
+    else{
+        if(maxh.top() > num) maxh.push(num);
+        else minh.push(num);
+
+        if(maxh.size() - minh.size() == 2){
+            int v = maxh.top();
+            maxh.pop();
+            minh.push(v);
+        }else if(minh.size() - maxh.size() == 2){
+            int v = minh.top();
+            minh.pop();
+            maxh.push(v);
+        }
+    }
+}
+
+double findMedian() {
+    if(minh.size()>maxh.size()) return minh.top();
+    if(maxh.size()>minh.size()) return maxh.top();
+    return (minh.top()+maxh.top())/2.0;
+}
