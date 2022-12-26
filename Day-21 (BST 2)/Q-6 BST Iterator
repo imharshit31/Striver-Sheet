@@ -1,0 +1,28 @@
+stack<TreeNode*> stk;
+
+BSTIterator(TreeNode* root) {
+
+    TreeNode *r = root;
+
+    while(r){
+        stk.push(r);
+        r=r->left;
+    }
+}
+
+int next() {
+    TreeNode *v = stk.top();
+    stk.pop();
+    if(v->right){
+        TreeNode *r = v->right;
+        while(r){
+            stk.push(r);
+            r=r->left;
+        }
+    }
+    return v->val;
+}
+
+bool hasNext() {
+    return stk.size();
+}
