@@ -1,0 +1,21 @@
+int mx=0;
+
+vector<int> func(TreeNode* root){
+
+    if(!root) return {0,INT_MIN,INT_MAX};
+
+    vector<int> l = func(root->left), r = func(root->right);
+
+    if(l[1] < root->val and root->val < r[2]){
+        mx = max(mx,root->val + l[0] + r[0]);
+        return {root->val + l[0] + r[0],max(r[1],root->val),min(l[2],root->val)};
+    }
+
+    return {max(l[0],r[0]),INT_MAX,INT_MIN};
+}
+
+int maxSumBST(TreeNode* root) {
+
+    func(root);
+    return mx;
+}
