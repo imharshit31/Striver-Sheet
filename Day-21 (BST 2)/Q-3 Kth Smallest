@@ -1,23 +1,27 @@
-int ans;
-    
-void inorder(TreeNode* root, int &k){
+int kthSmallest(TreeNode* root, int k) {
+        
+    int ans;
+    TreeNode *curr=root;
 
-    if(root){
-        inorder(root->right,k);
-        k--;
-        if(k==0){
-            ans=root->val;
-            k=-1;
-            return;
+    while(curr){
+        if(!curr->left){
+            k--;
+            if(!k) ans=curr->val;
+            curr=curr->right;
+        }else{
+            TreeNode *lkr=curr->left;
+            while(lkr->right and lkr->right != curr) lkr=lkr->right;
+            if(!lkr->right){
+                lkr->right=curr;
+                curr=curr->left;
+            }else{
+                lkr->right=NULL;
+                k--;
+                if(!k) ans=curr->val;
+                curr=curr->right;
+            }
         }
-        inorder(root->left,k);
     }
 
-}
-
-int kthSmallest(TreeNode* root, int k) {
-
-    inorder(root,k);
     return ans;
-
 }
