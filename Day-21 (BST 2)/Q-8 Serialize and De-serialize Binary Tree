@@ -1,0 +1,63 @@
+string serialize(TreeNode* root) {
+        
+    string ans="";
+    queue<TreeNode*> q;
+
+    if(!root) return "";
+    q.push(root);
+
+    while(q.size()){
+        int s = q.size();
+        while(s--){
+            TreeNode *fr = q.front();
+            q.pop();
+            if(fr){
+                ans+= to_string(fr->val)+',';
+                if(fr->left) q.push(fr->left);
+                else q.push(NULL);
+
+                if(fr->right) q.push(fr->right);
+                else q.push(NULL);
+
+            }else ans += "N,";
+        }
+    }
+
+    return ans;
+}
+
+TreeNode* deserialize(string data) {
+
+    if(!data.size()) return NULL;
+
+    queue<TreeNode*> q;
+    stringstream ss(data);
+    string str;
+    getline(ss,str,',');
+    TreeNode *root = new TreeNode(stoi(str));
+    q.push(root);
+
+    while(q.size()){
+        TreeNode* fr = q.front();
+        q.pop();
+
+        getline(ss,str,',');
+        if(str=="N") fr->left=NULL;
+        else{
+            TreeNode *l=new TreeNode(stoi(str));
+            fr->left=l;
+            q.push(l);
+        }
+
+        getline(ss,str,',');
+        if(str=="N") fr->right=NULL;
+        else{
+            TreeNode *r=new TreeNode(stoi(str));
+            q.push(r);
+            fr->right=r;
+        }
+
+    }
+
+    return root;
+}
