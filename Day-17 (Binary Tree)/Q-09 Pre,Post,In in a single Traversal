@@ -1,0 +1,21 @@
+vector<vector<int>> getTreeTraversal(BinaryTreeNode<int> *root){
+    
+    vector<vector<int>> ans(3,vector<int>());
+    if(!root) return {};
+    stack<pair<BinaryTreeNode<int>*,int>> stk;
+    stk.push({root,1});
+    
+    while(stk.size()){
+        auto tp = stk.top();
+        stk.pop();
+        if(tp.second ==3) ans[2].push_back(tp.first->data);
+        else if(tp.second ==2) ans[0].push_back(tp.first->data);
+        else ans[1].push_back(tp.first->data);
+        
+        if(tp.second != 3) stk.push({tp.first,tp.second+1});
+        if(tp.second ==1 and tp.first->left) stk.push({tp.first->left,1});
+        if(tp.second ==2 and tp.first->right) stk.push({tp.first->right,1});
+    }
+    
+    return ans;
+}
