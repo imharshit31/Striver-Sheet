@@ -1,0 +1,23 @@
+bool func(string &s, int ind, unordered_set<string> &us, vector<int> &dp){
+
+    if(ind >= s.size()) return true;
+    string curr="";
+
+    if(dp[ind] != -1) return dp[ind];
+
+    for(int i=ind;i<s.length();i++){
+        curr += s[i];
+        if(us.find(curr) != us.end() and func(s,i+1,us,dp)) return dp[ind] = true;
+    }
+
+    return dp[ind] = false;
+}
+
+int wordBreak(string A, vector<string> &B) {
+
+    unordered_set<string> us;
+    vector<int> dp(A.length(),-1);
+    for(auto a: B) us.insert(a);
+
+    return func(A,0,us,dp);
+}
