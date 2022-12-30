@@ -1,0 +1,16 @@
+int maxSumIS(int arr[], int n){  
+	   
+   vector<pair<int,int>> dp;
+
+   dp.push_back({arr[0],arr[0]});
+   int ans=arr[0];
+
+   for(int i=1;i<n;i++){
+       int mx=0;
+       for(int j=i-1;j>=0;j--) if(dp[j].first < arr[i]) mx = max(mx,dp[j].second);
+       dp.push_back({arr[i],arr[i]+mx});
+         ans = max(ans,dp[i].second);
+   }
+
+   return ans;
+}  
