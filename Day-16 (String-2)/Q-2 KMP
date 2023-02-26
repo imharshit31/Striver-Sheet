@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void lps_func(string &pat, vector<int> &lps){
+    
+    int n=lps.size(), i=0, j=1;
+    
+    for(int j=1;j<n;j++){
+        if(pat[i] == pat[j]){
+            lps[j]=i+1;
+            i++;
+        }else i=0;
+    }
+    
+}
+
+bool KMP(string &txt, string &pat){
+    
+    int m=txt.length(), n=pat.length();
+    vector<int> lps(n,0);
+    
+    lps_func(pat,lps);
+    
+    for(auto &a: lps) cout<<a<<" ";
+    cout<<endl;
+    
+    int i=0, j=-1;
+    
+    while(i<m){
+        if(txt[i] == pat[j+1]){
+            i++;
+            j++;
+            if(j==n-1){
+                cout<<"Found at "<<i-j-1<<endl;
+                return true;
+            }
+        }else{
+            if(j>=0) j=lps[j]-1;
+            else i++;
+        }
+    }
+    
+    return false;
+}
+
+int main() {
+    
+    string txt="abcxxabxabcab", pat="abcab";
+    
+    cout<<KMP(txt,pat);
+    
+    return 0;
+}
